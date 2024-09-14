@@ -73,40 +73,40 @@ const CalculatorApp = () => {
         <CalcButton label="7" onPress={() => updateInput('7')} />
         <CalcButton label="8" onPress={() => updateInput('8')} />
         <CalcButton label="9" onPress={() => updateInput('9')} />
-        <CalcButton label="+" onPress={() => updateInput('+')} />
-        <CalcButton label="Back" onPress={backspace} />
+        <SpecialButton label="+" onPress={() => updateInput('+')} />
+        <SpecialButton label="Back" onPress={backspace} />
       </View>
 
       <View style={styles.buttonRow}>
         <CalcButton label="4" onPress={() => updateInput('4')} />
         <CalcButton label="5" onPress={() => updateInput('5')} />
         <CalcButton label="6" onPress={() => updateInput('6')} />
-        <CalcButton label="-" onPress={() => updateInput('-')} />
-        <CalcButton label="Ans" onPress={usePreviousResult} />
+        <SpecialButton label="-" onPress={() => updateInput('-')} />
+        <SpecialButton label="Ans" onPress={usePreviousResult} />
       </View>
 
       <View style={styles.buttonRow}>
         <CalcButton label="1" onPress={() => updateInput('1')} />
         <CalcButton label="2" onPress={() => updateInput('2')} />
         <CalcButton label="3" onPress={() => updateInput('3')} />
-        <CalcButton label="x" onPress={() => updateInput('*')} />
-        <CalcButton label="M+" onPress={addToMemory} />
+        <SpecialButton label="x" onPress={() => updateInput('*')} />
+        <SpecialButton label="M+" onPress={addToMemory} />
       </View>
 
       <View style={styles.buttonRow}>
         <CalcButton label="0" onPress={() => updateInput('0')} />
         <CalcButton label="." onPress={() => updateInput('.')} />
-        <CalcButton label="EXP" onPress={addExponent} />
-        <CalcButton label="/" onPress={() => updateInput('/')} />
-        <CalcButton label="M-" onPress={subtractFromMemory} />
+        <SpecialButton label="EXP" onPress={addExponent} />
+        <SpecialButton label="/" onPress={() => updateInput('/')} />
+        <SpecialButton label="M-" onPress={subtractFromMemory} />
       </View>
 
       <View style={styles.buttonRow}>
-        <CalcButton label="+/-" onPress={toggleSign} />
-        <CalcButton label="RND" onPress={generateRandom} />
+        <SpecialButton label="+/-" onPress={toggleSign} />
+        <SpecialButton label="RND" onPress={generateRandom} />
         <CalcButton label="AC" onPress={clearAll} />
         <CalcButton label="=" onPress={calculateResult} />
-        <CalcButton label="MR" onPress={recallMemory} />
+        <SpecialButton label="MR" onPress={recallMemory} />
       </View>
     </View>
   );
@@ -118,18 +118,26 @@ const CalcButton = ({ label, onPress }) => (
   </TouchableOpacity>
 );
 
+const SpecialButton = ({ label, onPress }) => (
+  <TouchableOpacity style={styles.special_button} onPress={onPress}>
+    <Text style={styles.buttonText}>{label}</Text>
+  </TouchableOpacity>
+);
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#f4f4f4',
+    paddingBottom: 30,
+    gap: 10,
   },
-  displayText: {
+  displayText: { //screen
     fontSize: 40,
     marginBottom: 20,
     textAlign: 'right',
-    width: '80%',
+    width: '95%',
     borderColor: '#ccc',
     borderWidth: 1,
     padding: 10,
@@ -137,17 +145,27 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: 5,
+    gap: 10,
+    width: '90%',
   },
   button: {
+    flex:1,
+    height: 80,
+    backgroundColor: '#aec0d3',
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  special_button: {
+    flex:1,
+    height: 80,
     backgroundColor: '#ddd',
-    padding: 20,
-    marginHorizontal: 5,
-    borderRadius: 5,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 25,
   },
 });
 
