@@ -48,7 +48,9 @@ const CalculatorApp = () => {
   };
 
   const usePreviousResult = () => {
-    setCurrentInput(previousResult?.toString() || '');
+    if (previousResult !== null) {
+      setCurrentInput((currentInput || '') + previousResult.toString());
+    }
   };
 
   const toggleSign = () => {
