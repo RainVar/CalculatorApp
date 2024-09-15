@@ -9,10 +9,11 @@ const CalculatorApp = () => {
 
   const updateInput = (value) => {
     if (calculatedResult !== null) {
-      setCurrentInput('');
+      setCurrentInput(previousResult + value);  // Use the result to continue calculation
       setCalculatedResult(null);
+    } else {
+      setCurrentInput(currentInput + value);
     }
-    setCurrentInput(currentInput + value);
   };
 
   const clearAll = () => {
@@ -21,14 +22,14 @@ const CalculatorApp = () => {
   };
 
   const backspace = () => {
-    setCurrentInput(currentInput.slice(0, -1) || 0);
+    setCurrentInput(currentInput.slice(0, -1) || '');  // Ensure fallback to empty string
   };
 
   const calculateResult = () => {
     try {
       const result = eval(currentInput);
       setCalculatedResult(result);
-      setPreviousResult(result);
+      setPreviousResult(result);  // Store the result for further use
     } catch (error) {
       setCalculatedResult('Invalid Input');
     }
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     gap: 10,
   },
-  displayText: { //screen
+  displayText: { 
     fontSize: 40,
     marginBottom: 20,
     textAlign: 'right',
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   button: {
-    flex:1,
+    flex: 1,
     height: 80,
     backgroundColor: '#aec0d3',
     borderRadius: 20,
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   special_button: {
-    flex:1,
+    flex: 1,
     height: 80,
     backgroundColor: '#ddd',
     borderRadius: 20,
