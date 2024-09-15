@@ -5,6 +5,7 @@ const CalculatorApp = () => {
   const [currentInput, setCurrentInput] = useState('');
   const [storedValue, setStoredValue] = useState(0);
   const [calculatedResult, setCalculatedResult] = useState(null);
+  const [previousResult, setPreviousResult] = useState(null);
 
   const updateInput = (value) => {
     if (calculatedResult !== null) {
@@ -20,12 +21,14 @@ const CalculatorApp = () => {
   };
 
   const backspace = () => {
-    setCurrentInput(currentInput.slice(0, -1));
+    setCurrentInput(currentInput.slice(0, -1) || 0);
   };
 
   const calculateResult = () => {
     try {
-      setCalculatedResult(eval(currentInput));
+      const result = eval(currentInput);
+      setCalculatedResult(result);
+      setPreviousResult(result);
     } catch (error) {
       setCalculatedResult('Invalid Input');
     }
@@ -44,7 +47,7 @@ const CalculatorApp = () => {
   };
 
   const usePreviousResult = () => {
-    setCurrentInput(calculatedResult?.toString() || '');
+    setCurrentInput(previousResult?.toString() || '');
   };
 
   const toggleSign = () => {
@@ -82,7 +85,7 @@ const CalculatorApp = () => {
         <CalcButton label="5" onPress={() => updateInput('5')} />
         <CalcButton label="6" onPress={() => updateInput('6')} />
         <SpecialButton label="-" onPress={() => updateInput('-')} />
-        <SpecialButton label="Ans" onPress={usePreviousResult} />
+        <SpecialButton label="Ans" onPress={usePreviousResult} /> 
       </View>
 
       <View style={styles.buttonRow}>
